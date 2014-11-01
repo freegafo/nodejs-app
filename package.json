@@ -1,0 +1,26 @@
+{
+  "name": "NodeJsApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "dotjs": "^0.2.0",
+    "express": "^4.10.1",
+    "mongodb": "^1.4.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freegafo/nodejs-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freegafo/nodejs-app/issues"
+  },
+  "homepage": "https://github.com/freegafo/nodejs-app"
+}

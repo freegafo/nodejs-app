@@ -4,12 +4,18 @@ var fs = require('fs');
 var express = require('express');
 var config = JSON.parse(fs.readFileSync('config.json'));
 
+var dots = require("dot").process({path: "./views"});
+      dots.mytemplate({foo:"hello world"});
 
 var host = config.host;
 var port = config.port;
 
 var app = express();
 
+
+app.set('views', './views');
+app.set("view engine", "def");
+app.engine('def', dots);
 
 var users = {
 	'1': {
@@ -27,17 +33,20 @@ var users = {
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-	res.send('Bla bla bla!');	
+	//res.status(200).send('hop');
+	res.render('home', {
+		title: 'hello DotJS'
+	});	
 });
 
-app.get('/user/:id', function(req, res) {
-	var user = users[req.params.id];	
-	if(user){
-		res.status(200).send("<a href='" + user.link + "'>" + user.name + "</a>");
-	}else{
-		res.status(404).send('Sorry User not found :(');
-	}
-});
+// app.get('/user/:id', function(req, res) {
+// 	var user = users[req.params.id];	
+// 	if(user){
+// 		res.status(200).send("<a href='" + user.link + "'>" + user.name + "</a>");
+// 	}else{
+// 		res.status(404).send('Sorry User not found :(');
+// 	}
+// });
 
 app.listen(port, host);
 
