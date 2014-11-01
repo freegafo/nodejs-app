@@ -1,31 +1,30 @@
 // Load the http module to create an http server.
-var http = require('http');
-var fs = require('fs');
-var express = require('express');
+var fs = require('fs')
+	, express = require('express')
+	, doT = require('express-dot')
+	, path = require('path');
+
 var config = JSON.parse(fs.readFileSync('config.json'));
-
-// var dots = require("doT").process({path: "./views"});
-      // dots.mytemplate({foo:"hello world"});
-
-var host = config.host;
-var port = config.port;
-
 var app = express();
-app.set('views', __dirname + '/views');
-app.set('view engine', 'dot' );
-app.engine('dot', require('express-dot').__express );
-// app.use(express.static(__dirname + '/public'));
 
-
-
-
-app.get('/home', function(req, res) {
-	res.render('home' ,{title: 'title test'});	
+doT.setGlobals({
+	title: 'Some Global Title'
 });
 
+app.set("views", path.join(__dirname, "views"));
+app.set('view engine', 'dot');
+app.engine('dot', doT.__express);
 
-app.listen(port, host);
-console.log("Running at " + host + ':' + port);
+app.get('/home', function(req, res) {
+	res.render('home', {name: 'Gabriel'});	
+});
+
+app.listen(
+	config.port,
+	config.host
+);
+
+console.log("Running at " + config.host + ':' + config.port);
 
 // var users = {
 // 	'1': {
@@ -46,5 +45,4 @@ console.log("Running at " + host + ':' + port);
 // 		res.status(404).send('Sorry User not found :(');
 // 	}
 // });
-
 

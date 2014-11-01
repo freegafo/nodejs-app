@@ -1,2 +1,1 @@
-
-this is DOT file
+Hello {{=it.name}}!!
