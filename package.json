@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "dotjs": "^0.2.0",
+    "dot": "^1.0.2",
     "express": "^4.10.1",
     "mongodb": "^1.4.19"
   },
