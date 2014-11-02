@@ -1,0 +1,7 @@
+{{? it.users}}
+	<ul>
+		{{~ it.users: user}}
+			<li>{{= user.name}}</li>
+		{{~}}
+	</ul>
+{{?}}

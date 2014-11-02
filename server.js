@@ -15,34 +15,28 @@ app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'dot');
 app.engine('dot', doT.__express);
 
-app.get('/home', function(req, res) {
-	res.render('home', {name: 'Gabriel'});	
-});
+//Routes
+app.use(require('./routes'));
 
 app.listen(
-	config.port,
-	config.host
+	config.server.port,
+	config.server.host
 );
 
-console.log("Running at " + config.host + ':' + config.port);
+console.log("Running at " + config.server.host + ':' + config.server.port);
 
-// var users = {
-// 	'1': {
-// 		'name': 'test1 test1',
-// 		'link': 'http://google.com'
-// 	},
-// 	'2': {
-// 		'name': 'test2 test2',
-// 		'link': 'http://abv.bg'
-// 	}
-// }
+var mongo = require('mongodb'),
+	MongoClient = require('mongodb').MongoClient;
 
-// app.get('/user/:id', function(req, res) {
-// 	var user = users[req.params.id];	
-// 	if(user){
-// 		res.status(200).send("<a href='" + user.link + "'>" + user.name + "</a>");
-// 	}else{
-// 		res.status(404).send('Sorry User not found :(');
-// 	}
-// });
+var dbHost = config.mongo.host;
+var dbPort = mongo.Connection.DEFAULT_PORT;
+var dbUrl = "mongodb://" + dbHost + ":" + dbPort + "/nodejs-app";
+
+//Connect to DB
+MongoClient.connect(dbUrl, function(err, _db) {
+	if(err)
+		return console.log(err);
+    // Save the db reference
+    db = _db;
+});
 
